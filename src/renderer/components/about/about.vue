@@ -6,29 +6,52 @@
             查看svg文件，并不是代替资源文件管理器
         </p>
         <h1 class="aboutCor title">关于作者</h1>
-        <p class="describe">
+        <p class="describe pointer" @click="openweb('https://github.com/1057376155')">
             cor是一个前端开发工程师
             <br/>
             github地址 : https://github.com/1057376155
         </p>
         <h1 class="title">技术构成</h1>
         <p class="describe">该软件使用 electron + vue 构成</p>
-        <h1 class="title">最新版本</h1>
-        <p class="describe">最新版本 v1.1.0</p>
+        <h1 class="title">版本</h1>
+        <p class="describe">当前版本 {{version}}</p>
+        <p class="describe pointer" @click="openweb('https://github.com/1057376155/corsvgbrowser')">最新版本 {{serverVserion}} &nbsp; 点击获取最新版本</p>
         <button @click="closeFN" class="btn close">关闭</button>
     </div>
 </template>
 
 <script>
+    import pjson from '../../../../package.json'
+    var shell=require('electron').remote.shell
+    var https = require('https');   
     export default {
         data(){
             return{
-
+                version:pjson.version,
+                serverVserion:''
             }
+        },
+        mounted() {
+            this.getServerVersion();
         },
         methods:{
             closeFN(){
                 this.$emit('colose')
+            },
+            getServerVersion(){
+                https.get('https://raw.githubusercontent.com/1057376155/corsvgbrowser/master/package.json',(res)=>{
+                    var resData = "";
+                    res.on("data",function(data){
+                        resData += data;
+                    });
+                    res.on("end",()=>{
+                        this.serverVserion=JSON.parse(resData).version
+                        console.log(this.serverVserion,'-=-=')
+                    });
+                })
+            },
+            openweb(url){
+                shell.openExternal(url)
             }
         }
     }
@@ -67,6 +90,9 @@
         right:20px;
         bottom: 0px;
         -webkit-app-region: no-drag;
+    }
+    .pointer{
+        cursor: pointer;
     }
 }
 </style>

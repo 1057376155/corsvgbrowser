@@ -81,7 +81,7 @@ var path=require('path')
              this.initPaths()
              process.on('uncaughtException', function (e) {
                 /*处理异常*/
-                console.log(e.message,'-=-')
+                // console.log(e.message,'-=-')
             });
         },
         methods:{
@@ -214,7 +214,6 @@ var path=require('path')
                         console.log(err)
                     }
                     var num=0;
-                    console.log(files.length)
                     files.forEach((file,index)=>{
                         fs.access(path.resolve(filePath,file), fs.constants.R_OK, (err) => {
                             num+=1

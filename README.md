@@ -1,4 +1,4 @@
-# photobrowser
+# corsvgbrowser
 
 写 corsvgbrowser 的动机是为了解决在开发的时候想要查看svg文件，但，window 上并没有找到可以预览svg文件的软件，之前都是用把
 文件拖入chrome中进行查看，但是文件数量多了之后，想要找到是某个文件对我来说是一件困难的事情，所以corsvgbrowser就诞生了，corsvgbrowser主要是用于
